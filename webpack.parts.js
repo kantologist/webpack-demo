@@ -106,3 +106,81 @@ exports.purifyCSS = ({ paths }) => ({
     new PurifyCSSPlugin({ paths }),
   ],
 });
+
+
+
+exports.lintCSS = ({ include, exclude }) => ({
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        include,
+        exclude,
+        enforce: 'pre',
+
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => ([
+            require('stylelint')({
+              ignoreFiles: 'node_modules/**/*.css',
+            }),
+          ]),
+        },
+      },
+    ],
+  },
+});
+
+
+exports.loadImages = ({ include, exclude, options } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|svg)$/,
+        include,
+        exclude,
+
+        use:[
+        {
+          loader: 'url-loader',
+          options,
+        },
+        'image-webpack-loader',
+      ],
+      },
+    ],
+  },
+});
+
+exports.loadFonts = ({ include, exclude, options } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(eot|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        include,
+        exclude,
+        use:{
+          loader: 'file-loader',
+          options,
+        },
+      },
+    ],
+  },
+});
+
+exports.loadJavaScript = ({ include, exclude }) => ({
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include,
+        exclude,
+
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory:true,
+        },
+      },
+    ],
+  },
+});
