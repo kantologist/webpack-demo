@@ -1,15 +1,23 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const WebpackDashboard = require('webpack-dashboard/plugin');
+const glob = require('glob');
+
+const parts = require('./webpack.parts');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
+  style:glob.sync('./app/**/*.css'),
 };
 
 // module.exports = {
-const commonConfig = {
+const commonConfig = merge([
+  {
   entry: {
     app: PATHS.app,
+    style: PATHS.style,
   },
   output: {
     path: PATHS.build,
@@ -19,49 +27,35 @@ const commonConfig = {
     new HtmlWebpackPlugin({
       title: 'Webpack demo',
     }),
+    new WebpackDashboard(),
   ],
-};
+  },
+  parts.lintJavaScript({  include: PATHS.app }),
+]);
 
-const productionConfig = () => commonConfig;
+const productionConfig = merge([
+  parts.extractCSS({
+    use:['css-loader', parts.autoprefix()],
+}),
+  parts.purifyCSS({
+    paths: glob.sync(`${PATHS.app}/**/*`, { nodir: true }),
+  }),
+]);
 
-const developmentConfig = () => {
-  const config = {
-    devServer: {
-      historyApiFallback: true,
-      stats: 'errors-only',
-      host: process.env.HOST,
-      port: process.env.PORT,
-      overlay: {
-      errors: true,
-      warnings: false,
-    },
-    },
-    module:{
-      rules: [
-        {
-        test: /\.js$/,
-        enforce: 'pre',
-
-        loader: 'eslint-loader',
-        options : {
-            emitWarning: true,
-          },
-        },
-      ],
-    },
-  };
-  return Object.assign(
-    {},
-    commonConfig,
-    config
-  );
-};
+const developmentConfig = merge([
+parts.devServer({
+  host: process.env.HOST,
+  port: process.env.PORT,
+  }),
+  parts.loadCSS(),
+  parts.loadSASS(),
+]);
 
 module.exports = (env) => {
 
   if (env == 'production'){
-    return productionConfig();
+    return merge(commonConfig, productionConfig);
   }
 
-  return developmentConfig();
+  return merge(commonConfig, developmentConfig);
 };
