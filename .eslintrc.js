@@ -5,9 +5,12 @@ module.exports = {
     es6:true,
     node:true,
   },
-  extends: 'eslint:recommended',
+  // extends: 'eslint:recommended',
+  parser:'babel-eslint',
   parserOptions: {
     sourceType: 'module',
+
+    allowImportExportEverywhere:true,
   },
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
@@ -15,7 +18,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     quotes : ['error', 'single'],
     semi : ['error', 'always'],
-    'no-used-var' : ['warn'],
+    'no-used-var' : 0,
     'no-console': 0,
   },
 };

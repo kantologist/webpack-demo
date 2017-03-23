@@ -1,11 +1,4 @@
-body {
-  background: cornsilk;
-  background-image: url('./logo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  display : flex;
-}
-
-.redButton {
-  background: red;
+.container{
+  max-width: var(--site-width);
+ margin: 0 auto;
 }

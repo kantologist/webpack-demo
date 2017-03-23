@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const WebpackDashboard = require('webpack-dashboard/plugin');
 const glob = require('glob');
+const webpack = require('webpack');
 
 const parts = require('./webpack.parts');
 
@@ -18,6 +19,7 @@ const commonConfig = merge([
   entry: {
     app: PATHS.app,
     style: PATHS.style,
+    vendor: ['react'],
   },
   output: {
     path: PATHS.build,
@@ -26,8 +28,12 @@ const commonConfig = merge([
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack demo',
+      template: path.join(PATHS.app,'index.html')
     }),
     new WebpackDashboard(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
   ],
   },
   parts.lintJavaScript({  include: PATHS.app }),
@@ -41,6 +47,8 @@ const commonConfig = merge([
 ]);
 
 const productionConfig = merge([
+  parts.clean(PATHS.build),
+  parts.attachRevision(),
   parts.extractCSS({
     use:['css-loader', parts.autoprefix()],
 }),
@@ -53,17 +61,24 @@ const productionConfig = merge([
       name: '[name].[ext]',
     },
   }),
+  parts.generateSourceMaps({type: 'source-map'}),
 ]);
 
 const developmentConfig = merge([
-parts.devServer({
-  host: process.env.HOST,
-  port: process.env.PORT,
+  {
+    output: {
+      devtoolModuleFilenameTemplate: 'webpack://[absolute-resource-path]',
+    },
+  },
+  parts.generateSourceMaps({ type: 'cheap-module-eval-source-map'}),
+  parts.devServer({
+    host: process.env.HOST,
+    port: process.env.PORT,
   }),
   parts.loadCSS(),
   parts.loadSASS(),
   parts.loadImages(),
-]);
+  ]);
 
 module.exports = (env) => {
 

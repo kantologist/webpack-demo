@@ -5,9 +5,10 @@
       {
         "modules":false,
         "targets":{
-          "browsers":["last 2 Chrome versions"]
-        }
-      }
-    ]
-  ]
+          "browsers":["last 2 Chrome versions"],
+        },
+      },
+    ],
+  ],
+  "plugins": ["syntax-dynamic-import", "transform-react-jsx"],
 }
