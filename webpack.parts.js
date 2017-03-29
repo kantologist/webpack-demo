@@ -2,7 +2,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
+const BabiliPlugin = require('babili-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
+const CompresionPlugin = require('compression-webpack-plugin');
 
 exports.devServer = ({ host, port} = {}) => ({
   devServer: {
@@ -72,7 +76,7 @@ exports.loadSASS = ({ include, exclude, use } = {}) => ({
 
 exports.extractCSS = ({ include, exclude, use }) => {
   const plugin = new ExtractTextPlugin({
-    filename: '[name].css',
+    filename: '[name].[contenthash:8].css',
   });
 
   return {
@@ -204,4 +208,50 @@ exports.attachRevision = () => ({
       banner: new GitRevisionPlugin().version(),
     }),
   ],
+});
+
+exports.minifyJavascript = () => ({
+  plugins:[
+    new BabiliPlugin(),
+  ],
+});
+
+exports.minifyCSS = ({ options }) => ({
+  plugins:[
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: options,
+      canPrint:false,
+    }),
+  ],
+});
+
+exports.setFreeVariable = (key, value) => {
+  const env = {};
+  env[key] = JSON.stringify(value);
+
+  return {
+    plugins:[
+      new webpack.DefinePlugin(env),
+    ],
+  };
+};
+
+exports.compressAssets = () => ({
+  plugins:[
+    new CompresionPlugin(
+      {
+        asset: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$|\.html$|\.css$/,
+        threshold:10240,
+        minRatio:0.8,
+      }),
+  ],
+});
+
+exports.extractBundles = (bundles) => ({
+  plugins: bundles.map((bundle) => (
+    new webpack.optimize.CommonsChunkPlugin(bundle)
+  )),
 });

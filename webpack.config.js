@@ -13,7 +13,6 @@ const PATHS = {
   style:glob.sync('./app/**/*.css'),
 };
 
-// module.exports = {
 const commonConfig = merge([
   {
   entry: {
@@ -28,40 +27,94 @@ const commonConfig = merge([
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack demo',
-      template: path.join(PATHS.app,'index.html')
+      template: path.join(PATHS.app,'index.html'),
+      chunksSortMode:'dependency'
     }),
     new WebpackDashboard(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+      }),
+    // new webpack.optimize.AggressiveSplittingPlugin({
+    //   minSize: 10000,
+    //   maxsize: 30000,
+    // }),
   ],
   },
-  parts.lintJavaScript({  include: PATHS.app }),
-  parts.lintCSS({ include: PATHS.app }),
+  parts.extractBundles([
+    {
+      names:['vendors',],
+      // minChunks: 1,
+       minChunks: ({ resource }) => (
+       resource &&
+       resource.indexOf('node_modules') >= 0 &&
+       resource.match(/\.js$/)
+       ),
+    },
+    {
+      name: 'manifest',
+      minChunks: Infinity,
+    },
+
+  ]),
+  // parts.lintJavaScript({  include: PATHS.app }),
+  // parts.lintCSS({ include: PATHS.app }),
   parts.loadFonts({
     options: {
-      name: '[name].[ext]',
+      name: '[name].[hash:8].[ext]',
     },
   }),
   parts.loadJavaScript({ include:PATHS.app }),
 ]);
 
 const productionConfig = merge([
+  {
+    performance:{
+      hints:'warning',
+      maxEntrypointSize: 100000,
+      maxAssetSize: 450000,
+    },
+
+    output: {
+      chunkFilename: '[name].[chunkhash:8].js',
+      filename: '[name].[chunkhash:8].js',
+      publicPath: '/webpack-demo/',
+    },
+    plugins:[
+      new webpack.HashedModuleIdsPlugin(),
+    ],
+    recordsPath: 'records.json',
+  },
   parts.clean(PATHS.build),
+  parts.minifyJavascript({ useSourceMap: true }),
+  // parts.minifyCSS({
+  //   options:{
+  //     discardComments: {
+  //       removeAll: true,
+  //     },
+  //     safe:true,
+  //   },
+  // }),
   parts.attachRevision(),
-  parts.extractCSS({
-    use:['css-loader', parts.autoprefix()],
-}),
+  // parts.extractCSS({
+  //   use:['css-loader', parts.autoprefix()],
+  // }),
+  parts.loadCSS(),
   parts.purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*`, { nodir: true }),
   }),
   parts.loadImages({
     options: {
       limit:15000,
-      name: '[name].[ext]',
+      name: '[name].[hash:8].[ext]',
     },
   }),
   parts.generateSourceMaps({type: 'source-map'}),
+  parts.setFreeVariable(
+    'process.env.NODE_ENV',
+    'production'
+  ),
+  // parts.compressAssets(),
 ]);
 
 const developmentConfig = merge([
