@@ -1,3 +1,0 @@
-/*! 10a03ce */
-webpackJsonp([2,3],{0:function(a,b,c){c("3ayb"),c("FzJG"),c("ybOS"),c("QSIk"),c("KMic"),a.exports=c("1Q41")},"1Q41":function(a){a.exports={container:"-main-container-15HKea-"}},"3ayb":function(){},FzJG:function(a){a.exports={heading:"-about-heading-1SU_s7-",bio:"-about-bio-2yDB8Z-"}},KMic:function(){},QSIk:function(a){a.exports={title:"-post-title-3-XEaj-",link:"-post-link-2hAC7w-",content:"-post-content-YCOKdV-"}},ybOS:function(a){a.exports={header:"-header-header-3bg5fk-",container:"-header-container-qEQAK0-",title:"-header-title-2lCWti-",list:"-header-list-lS3oQM-",listitems:"-header-listitems-2NXt4Z-",links:"-header-links-1uOJGh-"}}},[0]);
-//# sourceMappingURL=style.124fb741.js.map
