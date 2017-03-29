@@ -38,9 +38,9 @@ const App = () => (
   <div >
     <Header />
     <div className={styles.container}>
-    <Match exactly pattern='/' component={ Home }/>
-    <Match exactly pattern='/about' component={ About }/>
-    <Match exactly pattern='/post/:slug' component={props =>{
+    <Match exactly pattern='/webpack-demo/' component={ Home }/>
+    <Match exactly pattern='/webpack-demo/about' component={ About }/>
+    <Match exactly pattern='/webpack-demo/post/:slug' component={props =>{
       const post = posts.posts.filter(post => props.params.slug === post.slug);
       return < PostDetail post={post[0]} />;
     } }/>

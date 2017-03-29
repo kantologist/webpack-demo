@@ -86,7 +86,6 @@ exports.extractCSS = ({ include, exclude, use }) => {
           test: /\.css$/,
           include,
           exclude,
-
           use: plugin.extract({
             use,
             fallback: 'style-loader',
@@ -108,9 +107,11 @@ exports.autoprefix = () => ({
 });
 
 
-exports.purifyCSS = ({ paths }) => ({
+exports.purifyCSS = ({ paths, purifyOptions }) => ({
   plugins: [
-    new PurifyCSSPlugin({ paths }),
+    new PurifyCSSPlugin({ paths,
+      purifyOptions,
+       }),
   ],
 });
 

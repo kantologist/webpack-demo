@@ -87,22 +87,24 @@ const productionConfig = merge([
   },
   parts.clean(PATHS.build),
   parts.minifyJavascript({ useSourceMap: true }),
-  // parts.minifyCSS({
-  //   options:{
-  //     discardComments: {
-  //       removeAll: true,
-  //     },
-  //     safe:true,
-  //   },
-  // }),
-  parts.attachRevision(),
-  // parts.extractCSS({
-  //   use:['css-loader', parts.autoprefix()],
-  // }),
-  parts.loadCSS(),
-  parts.purifyCSS({
-    paths: glob.sync(`${PATHS.app}/**/*`, { nodir: true }),
+  parts.minifyCSS({
+    options:{
+      discardComments: {
+        removeAll: true,
+      },
+      safe:true,
+    },
   }),
+  parts.attachRevision(),
+  parts.extractCSS({
+    use:['css-loader?modules,localIdentName="PURIFY_[name]-[local]-[hash:base64:6]",camelCase', parts.autoprefix()],
+  }),
+  // parts.purifyCSS({
+  //   paths: glob.sync(`${PATHS.app}/**/*`, { nodir: true }),
+  //   purifyOptions : {
+  //       whitelist: ['*PURIFY*'],
+  //     },
+  // }),
   parts.loadImages({
     options: {
       limit:15000,

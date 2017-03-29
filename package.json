@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dashboard -- nodemon --watch webpack.config.js --exec \" webpack-dev-server --env development\"",
-    "build": "webpack-dashboard -- webpack --env production",
+    "predeploy": "webpack-dashboard -- webpack --env production",
     "lint:js": "eslint app/webpack.*.js --cache",
     "lint:style": "stylelint app/**/*.css",
     "stats": "webpack --env production --profile --json > stats.json",
