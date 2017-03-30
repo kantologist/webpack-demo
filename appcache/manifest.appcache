@@ -1,14 +1,16 @@
 CACHE MANIFEST
-#ver:3/30/2017, 6:57:37 PM
+#ver:3/30/2017, 7:05:27 PM
 #plugin:4.6.2
 
 CACHE:
-/webpack-demo/app.0c228e3d.js
+/webpack-demo/app.e41efeeb.js
 /webpack-demo/vendor.39b30461.js
-/webpack-demo/manifest.22aed3d8.js
+/webpack-demo/style.ca56bc59.js
+/webpack-demo/manifest.4557111c.js
 /webpack-demo/vendors.36668bff.js
 /webpack-demo/app.5b4f54d3.css
-/webpack-demo/app.0c228e3d.js.gz
+/webpack-demo/style.5b4f54d3.css
+/webpack-demo/app.e41efeeb.js.gz
 /webpack-demo/vendors.36668bff.js.gz
 /webpack-demo/
 

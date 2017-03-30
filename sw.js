@@ -1,12 +1,14 @@
 var __wpo = {
   "assets": {
     "main": [
-      "/webpack-demo/app.0c228e3d.js",
+      "/webpack-demo/app.e41efeeb.js",
       "/webpack-demo/vendor.39b30461.js",
-      "/webpack-demo/manifest.22aed3d8.js",
+      "/webpack-demo/style.ca56bc59.js",
+      "/webpack-demo/manifest.4557111c.js",
       "/webpack-demo/vendors.36668bff.js",
       "/webpack-demo/app.5b4f54d3.css",
-      "/webpack-demo/app.0c228e3d.js.gz",
+      "/webpack-demo/style.5b4f54d3.css",
+      "/webpack-demo/app.e41efeeb.js.gz",
       "/webpack-demo/vendors.36668bff.js.gz",
       "/webpack-demo/"
     ],
@@ -15,18 +17,20 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
-    "b22ea783fbe29710af14163c14b4687b27c25bd8": "/webpack-demo/app.0c228e3d.js",
+    "25642053e400e0632efc29cbfdc5734edd9c6325": "/webpack-demo/app.e41efeeb.js",
     "3fc11fd835113d9a5ccf0a7fd97277b0ca835949": "/webpack-demo/vendor.39b30461.js",
-    "3251afa64d377b7dc2bd2b51ddf8e9045c58c2c4": "/webpack-demo/manifest.22aed3d8.js",
+    "e6b54747ed165529a1f11e67a4f1d2a7fd98647c": "/webpack-demo/style.ca56bc59.js",
+    "054b9fa10eab8fece6e22636523d8cb42f2990c8": "/webpack-demo/manifest.4557111c.js",
     "1eb54533190fdec01457beb712e6b26d7b9e8690": "/webpack-demo/vendors.36668bff.js",
     "5a40ed7b21d496e8fc0a2a3d4f3c51fcc322d01d": "/webpack-demo/app.5b4f54d3.css",
-    "bf81bf6fee9594b8dcd0b28f9b1ea052db1b694f": "/webpack-demo/app.0c228e3d.js.gz",
+    "ae8c367fadb476a0f86e43a8c5393e1f45108442": "/webpack-demo/style.5b4f54d3.css",
+    "2a527e3bb82ee1e3ab728e2b6e66f421ac00bee3": "/webpack-demo/app.e41efeeb.js.gz",
     "3a32aef2cdcc7b09228b7ac2af8673a440c44339": "/webpack-demo/vendors.36668bff.js.gz",
-    "700601158d31047f8ddeefcb7a618e95f2540a82": "/webpack-demo/"
+    "1f809631cbbcb470868e3ac23bdb460d6f9144d7": "/webpack-demo/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "3/30/2017, 6:57:37 PM",
+  "version": "3/30/2017, 7:05:27 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.6.2",
   "relativePaths": false
