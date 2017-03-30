@@ -5,8 +5,8 @@
   "background_color": "#24A3CF",
   "display": "standalone",
   "orientation": "portrait",
-  "Scope": "/webpack-demo/",
-  "start_url": "/webpack-demo/",
+  "Scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "icon-72x72.png",
