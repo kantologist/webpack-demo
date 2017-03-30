@@ -26,11 +26,11 @@ var __wpo = {
     "ae8c367fadb476a0f86e43a8c5393e1f45108442": "/webpack-demo/style.5b4f54d3.css",
     "9115baeb9af96b7cc9ce03245fd8c9e2cf98f801": "/webpack-demo/app.d73e1494.js.gz",
     "3a32aef2cdcc7b09228b7ac2af8673a440c44339": "/webpack-demo/vendors.36668bff.js.gz",
-    "27be2437284526c3a43a3a1975fad415750fd296": "/webpack-demo/"
+    "5a979fe135b76a7b214264f819d5e9aa45fadd89": "/webpack-demo/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "3/30/2017, 4:47:02 PM",
+  "version": "3/30/2017, 5:04:02 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.6.2",
   "relativePaths": false

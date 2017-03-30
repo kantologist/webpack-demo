@@ -1,8 +1,8 @@
 {
   "name": "Webpack",
   "short_name": "pack",
-  "theme_color": "#2196f3",
-  "background_color": "#2196f3",
+  "theme_color": "#24A3CF",
+  "background_color": "#24A3CF",
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",
