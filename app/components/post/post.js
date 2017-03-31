@@ -1,7 +1,7 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 import styles from './post.css'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Post = (props) => (
   <div>

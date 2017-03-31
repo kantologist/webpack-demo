@@ -1,6 +1,7 @@
 import App from './component'; // eslint-disable-line no-unused-vars
 import {render} from 'react-dom';
 import './base.css';
+import { install } from 'offline-plugin/runtime';
 import React from 'react'; // eslint-disable-line no-unused-vars
 
 
@@ -9,3 +10,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 // var elem = React.createElement(App);
 
 render(<App />, document.getElementById('app'));
+
+if (process.env.NODE_ENV === 'production'){
+  install();
+}

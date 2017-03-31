@@ -1,6 +1,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import styles from './header.css';
-import { Link } from 'react-router'; // eslint-disable-line no-unused-vars
+import { Link } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 
 
 const Header = () => (

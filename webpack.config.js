@@ -4,6 +4,8 @@ const merge = require('webpack-merge');
 const WebpackDashboard = require('webpack-dashboard/plugin');
 const glob = require('glob');
 const webpack = require('webpack');
+const OfflinePlugin = require('offline-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const parts = require('./webpack.parts');
 
@@ -16,13 +18,19 @@ const PATHS = {
 const commonConfig = merge([
   {
   entry: {
-    app: PATHS.app,
+    app: path.join(PATHS.app, 'index.js'),
     style: PATHS.style,
     vendor: ['react'],
   },
   output: {
     path: PATHS.build,
     filename: '[name].js',
+  },
+  resolve: {
+      'alias': {
+        react: 'preact-compat',
+        'react-dom': 'preact-compat'
+      }
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -31,6 +39,9 @@ const commonConfig = merge([
       chunksSortMode:'dependency'
     }),
     new WebpackDashboard(),
+    new OfflinePlugin({
+      publicPath: '/webpack-demo/',
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"
@@ -57,8 +68,8 @@ const commonConfig = merge([
     },
 
   ]),
-  // parts.lintJavaScript({  include: PATHS.app }),
-  // parts.lintCSS({ include: PATHS.app }),
+  parts.lintJavaScript({  include: PATHS.app }),
+  parts.lintCSS({ include: PATHS.app }),
   parts.loadFonts({
     options: {
       name: '[name].[hash:8].[ext]',
@@ -74,7 +85,6 @@ const productionConfig = merge([
       maxEntrypointSize: 100000,
       maxAssetSize: 450000,
     },
-
     output: {
       chunkFilename: '[name].[chunkhash:8].js',
       filename: '[name].[chunkhash:8].js',
@@ -82,6 +92,11 @@ const productionConfig = merge([
     },
     plugins:[
       new webpack.HashedModuleIdsPlugin(),
+
+    new CopyWebpackPlugin([{
+      from: path.join(PATHS.app, '/icons/'),
+      to: path.join(PATHS.build),
+    }]),
     ],
     recordsPath: 'records.json',
   },
@@ -116,7 +131,7 @@ const productionConfig = merge([
     'process.env.NODE_ENV',
     'production'
   ),
-  // parts.compressAssets(),
+  parts.compressAssets(),
 ]);
 
 const developmentConfig = merge([

@@ -10,5 +10,5 @@
       },
     ],
   ],
-  "plugins": ["syntax-dynamic-import", "transform-react-jsx"],
+  "plugins": ["syntax-dynamic-import", "transform-react-jsx", "transform-remove-console"],
 }
